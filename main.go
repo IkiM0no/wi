@@ -22,10 +22,10 @@ func runner() {
 	switch runTime {
 	case "linux":
 		fmt.Println("Unix/Linux OS detected")
-		//m, _ = scanners.WinScan(WinCmd, WinArg)
+		m, _ = scanners.WinScan(WinCmd, WinArg)
 		//m, _ = scanners.DarwinScan(DarwinCmd, DarwinArg)
-		fmt.Println("Coming Soon")
-		os.Exit(1)
+		//fmt.Println("Coming Soon")
+		//os.Exit(1)
 	case "darwin":
 		fmt.Println("Mac OS detected")
 		m, _ = scanners.DarwinScan(DarwinCmd, DarwinArg)
