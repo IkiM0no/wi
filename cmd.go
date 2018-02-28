@@ -6,7 +6,10 @@ import (
 	"github.com/urfave/cli"
 )
 
-var interval int
+var (
+	interval int
+	pp       bool
+)
 
 func main() {
 	app := buildApp()
@@ -27,6 +30,11 @@ func buildApp() *cli.App {
 	                Name:  "i",
 	                Usage: "-i <WiFi polling interval in seconds>",
 	                Destination: &interval,
+	        },
+	        cli.BoolFlag{
+	                Name:  "p",
+	                Usage: "-p <true|false>",
+	                Destination: &pp,
 	        },
 	}
 	return app

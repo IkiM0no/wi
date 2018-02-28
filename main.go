@@ -23,9 +23,8 @@ func runner() {
 	case "linux":
 		fmt.Println(`{"os": "Unix/Linux"}`)
 		m, _ = scanners.WinScan(WinCmd, WinArg)
-		//m, _ = scanners.DarwinScan(DarwinCmd, DarwinArg)
-		//fmt.Println("Coming Soon")
-		//os.Exit(1)
+		fmt.Println("Coming Soon")
+		os.Exit(1)
 	case "darwin":
 		fmt.Println(`{"os": "Darwin"}`)
 		m, _ = scanners.DarwinScan(DarwinCmd, DarwinArg)
@@ -41,18 +40,28 @@ func runner() {
 
 func loop(m scanners.WifiNeighbors) {
 	for {
-		jsonify(m)
+		jsonify(m, pp)
 		sleep()
 	}
 }
 
-func jsonify(w scanners.WifiNeighbors) {
-	j, err := json.MarshalIndent(w, "", "    ")
-	if err != nil {
-	        fmt.Println("Json err:", err)
+func jsonify(w scanners.WifiNeighbors, prettyPrint bool) {
+	if prettyPrint {
+		j, err := json.MarshalIndent(w, "", "    ")
+		if err != nil {
+		        fmt.Println("Json err:", err)
+			return
+		}
+		sj := string(j)
+		fmt.Println(sj)
+	} else {
+		s, err := json.Marshal(w)
+		if err != nil {
+		        fmt.Println("Json err:", err)
+			return
+		}
+		fmt.Println(string(s))
 	}
-	sj := string(j)
-	fmt.Println(sj)
 }
 
 func sleep() {
