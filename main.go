@@ -21,20 +21,20 @@ func runner() {
 	var m scanners.WifiNeighbors
 	switch runTime {
 	case "linux":
-		fmt.Println("Unix/Linux OS detected")
+		fmt.Println({"os": "Unix/Linux"})
 		m, _ = scanners.WinScan(WinCmd, WinArg)
 		//m, _ = scanners.DarwinScan(DarwinCmd, DarwinArg)
 		//fmt.Println("Coming Soon")
 		//os.Exit(1)
 	case "darwin":
-		fmt.Println("Mac OS detected")
+		fmt.Println({"os": "Darwin"})
 		m, _ = scanners.DarwinScan(DarwinCmd, DarwinArg)
 	case "windows":
-		fmt.Println("Windows detected")
+		fmt.Println({"os": "Windows"})
 		m, _ = scanners.WinScan(WinCmd, WinArg)
 	default:
-		fmt.Println("Unknown/Unsupported runtime detected")
-		os.Exit(1)
+		fmt.Println({"os": "Unknown/Unsupported runtime detected"})
+		os.Exit(0)
 	}
 	loop(m)
 }
