@@ -4,7 +4,7 @@ import (
 	"time"
 	"regexp"
 	"strings"
-	"wi/regexputils"
+	"wi_/regexputils"
 )
 
 var reLines = regexp.MustCompile(`\s*(?P<ssidName>.+?)\s*(?P<ssidMac>([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}))\s*(?P<ssidRSSI>[\-\d]+)\s*(?P<ssidChannel>[\d,\+\-]{1,})\s*(?P<ssidHT>[Y|N]{1})\s*(?P<ssidCC>[A-Z\-]{2})\s*(?P<ssidSecurity>.*)`)

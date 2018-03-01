@@ -2,13 +2,16 @@ package main
 
 import (
 	"os"
+	"runtime"
 
+	"wi_/wi"
 	"github.com/urfave/cli"
 )
 
 var (
 	interval int
 	pp       bool
+	runTime  string
 )
 
 func main() {
@@ -22,7 +25,8 @@ func buildApp() *cli.App {
 	app.Version = "0.1.1"
 	app.Usage   = "Fetch metrics of WiFi neighbors."
 	app.Action  = func(c *cli.Context) error {
-		runner()
+		runTime = runtime.GOOS
+		wi.Runner(runTime, pp, interval)
 		return nil
 	}
 	app.Flags = []cli.Flag{

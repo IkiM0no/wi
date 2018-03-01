@@ -1,13 +1,12 @@
-package main
+package wi
 
 import (
 	"os"
 	"fmt"
 	"time"
-	"runtime"
 	"encoding/json"
 
-	"wi/scanners"
+	"wi_/wi/scanners"
 )
 
 const WinCmd = "/mnt/c/Windows/System32/netsh.exe"
@@ -16,17 +15,15 @@ var WinArg   = []string{"wlan", "show", "networks", "mode=bssid"}
 const DarwinCmd = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 var DarwinArg   = []string{"-s"}
 
-var runTime = runtime.GOOS
-
-func runner() {
+func Runner(runTime string, pp bool, interval int) {
 	for {
-		s := fetchScan()
+		s := fetchScan(runTime)
 		jsonify(s, pp)
-		sleep()
+		sleep(interval)
 	}
 }
 
-func fetchScan() scanners.WifiNeighbors {
+func fetchScan(runTime string) scanners.WifiNeighbors {
 	var m scanners.WifiNeighbors
 
 	switch runTime {
@@ -67,7 +64,7 @@ func jsonify(w scanners.WifiNeighbors, prettyPrint bool) {
 	}
 }
 
-func sleep() {
+func sleep(interval int) {
 	switch {
 	case interval != 0:
 		time.Sleep(time.Duration(interval) * time.Second)
@@ -75,4 +72,3 @@ func sleep() {
 		time.Sleep(time.Duration(10) * time.Second)
 	}
 }
-
