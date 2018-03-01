@@ -18,7 +18,6 @@ var DarwinArg   = []string{"-s"}
 
 var runTime = runtime.GOOS
 
-
 func runner() {
 	for {
 		s := fetchScan()
@@ -29,6 +28,7 @@ func runner() {
 
 func fetchScan() scanners.WifiNeighbors {
 	var m scanners.WifiNeighbors
+
 	switch runTime {
 	case "linux":
 		m, _ = scanners.WinScan(WinCmd, WinArg)

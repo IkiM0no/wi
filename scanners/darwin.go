@@ -1,8 +1,8 @@
 package scanners
 
 import (
+	"time"
 	"regexp"
-	//"os/exec"
 	"strings"
 	"wi/regexputils"
 )
@@ -12,11 +12,9 @@ var reLines = regexp.MustCompile(`\s*(?P<ssidName>.+?)\s*(?P<ssidMac>([0-9A-Fa-f
 func DarwinScan(app string, args []string) (WifiNeighbors, error) {
 	var sm WifiNeighbors
 	sm.ClientType = "Darwin"
+	t := time.Now().Format(time.RFC3339)
+	sm.CurrentUTC = t
 
-	// TESTS
-	//str := readFile("~/go/src/wi/darwin_multi_bssid")
-
-	// PROD
 	c := Cmd{App: app, Arg: args}
 	str := c.Exec()
 

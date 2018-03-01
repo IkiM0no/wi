@@ -2,6 +2,7 @@ package scanners
 
 import (
 	"fmt"
+	"time"
 	"regexp"
 	"strings"
 	"wi/regexputils"
@@ -27,6 +28,9 @@ var reBSSIDOtherRate = regexp.MustCompile(`\s{1,}Other\srates\s\(Mbps\)\s:\s(?P<
 
 func WinScan(winCmd string, winArg []string) (WifiNeighbors, error) {
 	var ssidMetrics WifiNeighbors
+
+	t := time.Now().Format(time.RFC3339)
+	ssidMetrics.CurrentUTC = t
 
 	c := Cmd{App: winCmd, Arg: winArg}
 	strParse := c.Exec()
