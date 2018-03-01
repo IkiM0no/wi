@@ -18,7 +18,7 @@ func main() {
 
 func buildApp() *cli.App {
 	app := cli.NewApp()
-	app.Name    = "Wi"
+	app.Name    = "wi"
 	app.Version = "0.1.1"
 	app.Usage   = "Fetch metrics of WiFi neighbors."
 	app.Action  = func(c *cli.Context) error {

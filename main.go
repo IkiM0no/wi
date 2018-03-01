@@ -16,32 +16,35 @@ var WinArg   = []string{"wlan", "show", "networks", "mode=bssid"}
 const DarwinCmd = "/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 var DarwinArg   = []string{"-s"}
 
+var runTime = runtime.GOOS
+
+
 func runner() {
-	var runTime = runtime.GOOS
+	for {
+		s := fetchScan()
+		jsonify(s, pp)
+		sleep()
+	}
+}
+
+func fetchScan() scanners.WifiNeighbors {
 	var m scanners.WifiNeighbors
 	switch runTime {
 	case "linux":
-		fmt.Println(`{"os": "Unix/Linux"}`)
 		m, _ = scanners.WinScan(WinCmd, WinArg)
 		fmt.Println("Coming Soon")
 		os.Exit(1)
+		return m
 	case "darwin":
-		fmt.Println(`{"os": "Darwin"}`)
 		m, _ = scanners.DarwinScan(DarwinCmd, DarwinArg)
+		return m
 	case "windows":
-		fmt.Println(`{"os": "Windows"}`)
 		m, _ = scanners.WinScan(WinCmd, WinArg)
+		return m
 	default:
 		fmt.Println(`{"os": "Unknown/Unsupported runtime detected"}`)
 		os.Exit(0)
-	}
-	loop(m)
-}
-
-func loop(m scanners.WifiNeighbors) {
-	for {
-		jsonify(m, pp)
-		sleep()
+		return m
 	}
 }
 
@@ -72,3 +75,4 @@ func sleep() {
 		time.Sleep(time.Duration(10) * time.Second)
 	}
 }
+

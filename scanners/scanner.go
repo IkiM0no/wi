@@ -9,6 +9,7 @@ import (
 
 type WifiNeighbors struct {
 	ClientType    string `json:"client_type"`
+	CurrentUTC    string `json:"current_utc"`
 	SSIDs         []SSID `json:"ssids"`
 }
 
